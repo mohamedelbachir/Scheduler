@@ -10,7 +10,7 @@ Very ease to use with trivial interface
 
 - [Overview](#overview)
 - [Manual](#manual)
-- [download](https://)
+- [Download](https://)
 - [support](#support)
 - [Tools](#tools)
 
@@ -55,9 +55,9 @@ You have the **possibily** to switch the theme of the App ( **Light** or **Dark*
 Many Open source Tools help me to build this software : 
 - `DearImgui` on this [repository](https://github.com/ocornut/imgui) for UI
 - `SDL` , you can find [here](https://github.com/libsdl-org/SDL) for Software rendering as BackEnd
-- `Freetype`
+- Dependency [`Freetype`](https://github.com/freetype/freetype) , [`tinyfileDialogs`](https://github.com/native-toolkit/libtinyfiledialogs)
 - `MyTinySDL` , it's my own tiny UI specially for SDL for learn [more](MyTinyGUI/) 
 ### Support
-You can support Me [here]() if you like my work.
+You can support Me with your Like :star: .
 
 Feel Free to Commit :)
