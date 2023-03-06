@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window lang="en">
     <splash id="splash">
-        <text id="descSplash" value="The application for GANTT\n visualization diagram for process\nscheduling in UNIX system"/>
+        <text id="descSplash" value="The application for GANTT visualization diagramfor process scheduling in UNIX system"/>
     </splash>
     <!--Pop up Menu-->
     <panel id="menu_panel">
