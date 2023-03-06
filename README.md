@@ -15,14 +15,14 @@ Very ease to use with trivial interface
 - [Tools](#tools)
 
 ## Overview
-**Scheduler** is a software that allow you to see with *visual graph* (GRANT DIAGRAMM) for Scheduling of processes in Unix system
+**Scheduler** is a software that allow you to see with *visual graph* (GRANT DIAGRAM) for Scheduling of processes in Unix system
 
 Some feature was implemented :
 - Choosing *Generation Mode* ( Alphabetic, Numerical, Alpha-Numeric,...)
 - Major *algorithm* like ( Round Robin, Shortest Remaning Time First,...)
 - Two Languages are available now ( **French** and **English** )
 
-If you are looking for optimizing implemented algorithm you can see [here](ScheduleAlgorithm.cpp)
+If you are looking for optimizing implemented algorithm you can see [here](ScheduleAlgorithm.cpp) and for data structure you can check [here](Utils.h)
 
 ## Manual
 
