@@ -4,9 +4,9 @@ AboutWindow* AboutWindow::m_aboutWindow=NULL;
 bool AboutState::onEnter()
 {
     //[LOAD RESSOURCE]
-    thefontManager::Instance()->load("fonts/verdana.ttf",20,"textFont");
-    thefontManager::Instance()->load("fonts/verdana.ttf",13,"textInfo");
-    theTextureManager::Instance()->load("icons/Scheduler.png","logoIcon",referenceWindow->getRenderer());
+    thefontManager::Instance()->load(App::m_path[MAINAPP_PATH]+"fonts/verdana.ttf",20,"textFont");
+    thefontManager::Instance()->load(App::m_path[MAINAPP_PATH]+"fonts/verdana.ttf",13,"textInfo");
+    theTextureManager::Instance()->load(App::m_path[MAINAPP_PATH]+"icons/Scheduler.png","logoIcon",referenceWindow->getRenderer());
 
     UI_Image *icon=new UI_Image("logoIcon",20,20);
     icon->resize(200,200);

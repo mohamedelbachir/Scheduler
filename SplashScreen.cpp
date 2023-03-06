@@ -13,9 +13,10 @@ int MainSplashState::loadInitialisation(void *ptr){
     //std::cout<<App::m_path[MAINAPP_PATH];
     characterDirectory=App::m_path[MAINAPP_PATH].back();
 
-    char LangPath[6];
+    char LangPath[7];
     sprintf(LangPath,"%s%c","lang",characterDirectory);
-    App::m_path[LANG_PATH]=LangPath;
+    App::m_path[LANG_PATH]=App::m_path[MAINAPP_PATH]+LangPath;
+    std::cout<<"lang : "<<App::m_path[LANG_PATH];
 
 
     //get Preference App directory to storage
@@ -54,7 +55,7 @@ int MainSplashState::loadInitialisation(void *ptr){
     initLangFile();
 
     //delete allocated string memory for path
-    delete []recentFilesPath;
+    //delete recentFilesPath;
     delete []SettingPath;
     delete []LangPath;
     SDL_Delay(300);
@@ -63,10 +64,11 @@ int MainSplashState::loadInitialisation(void *ptr){
 }
 bool MainSplashState::onEnter()
 {
-    theTextureManager::Instance()->load("splash/SchedulerSplashScreen.jpg","splash",referenceWindow->getRenderer());
-    thefontManager::Instance()->load("fonts/candara.ttf",30,"splashTextFont");
-    thefontManager::Instance()->load("fonts/candara.ttf",20,"splashTextVerSion");
-    thefontManager::Instance()->load("fonts/candara.ttf",10,"splashText");
+    SDL_Delay(100);
+    theTextureManager::Instance()->load(App::m_path[MAINAPP_PATH]+"splash/SchedulerSplashScreen.jpg","splash",referenceWindow->getRenderer());
+    thefontManager::Instance()->load(App::m_path[MAINAPP_PATH]+"fonts/candara.ttf",30,"splashTextFont");
+    thefontManager::Instance()->load(App::m_path[MAINAPP_PATH]+"fonts/candara.ttf",20,"splashTextVerSion");
+    thefontManager::Instance()->load(App::m_path[MAINAPP_PATH]+"fonts/candara.ttf",10,"splashText");
 
     listWidget.push_back(new UI_Image("splash",0,0));
     UI_Text *appName=new UI_Text(referenceWindow->getRenderer(),APPNAME,20,100,"splashTextFont");
@@ -77,6 +79,7 @@ bool MainSplashState::onEnter()
                                                                   ,"splashTextVerSion");
     listWidget.push_back(appName);
     listWidget.push_back(appVersion);
+
     return true;
 }
 bool MainSplashState::onExit()

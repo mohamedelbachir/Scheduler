@@ -53,9 +53,9 @@ void MainState::update()
                     }
                     if(ImGui::IsItemClicked(ImGuiMouseButton_Left)){
                         if(App::m_appLanguage==FR_fr){
-                            SDL_OpenURL("help_fr.html");
+                            SDL_OpenURL(std::string(App::m_path[MAINAPP_PATH]+"manual/help_fr.html").c_str());
                         }else{
-                            SDL_OpenURL("help_en.html");
+                            SDL_OpenURL(std::string(App::m_path[MAINAPP_PATH]+"manual/help_en.html").c_str());
                         }
                     }
 

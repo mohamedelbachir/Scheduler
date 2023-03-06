@@ -5,7 +5,7 @@ bool sortProcessByArriveTimeSmallFirst(Process a,Process b){
 }
 
 bool sortProcessByArriveTimeSmallFirstEqual(Process a,Process b){
-    return a.t_arrive<=b.t_arrive;
+    return a.t_arrive<b.t_arrive;
 }
 
 void displayProcessChunkResult(std::vector<ProcessChunck> r){
@@ -212,7 +212,6 @@ std::vector<ProcessChunck> roundRobin(std::vector<Process> listProcess,int quant
     std::vector<Process>::iterator it;
     int k=listProcess.at(0).t_arrive;
 
-    //boolean to apply coming earlier remain first after sorting
     bool firstInit=true;
     while(!listProcess.empty()){
 
@@ -240,27 +239,25 @@ std::vector<ProcessChunck> roundRobin(std::vector<Process> listProcess,int quant
 
         //new set position of process
         listProcess.at(0).t_arrive=t.endTime;
-        if(listProcess.at(0).t_exec>quantum)
+        if(listProcess.at(0).t_exec>quantum){
             listProcess.at(0).t_exec-=quantum;
-        else
+            listProcess.at(0).isTaskDone=true;
+        }else{
             listProcess.at(0).t_exec=0;
-
+        }
         k=listProcess.at(0).t_arrive;
 
         //if it finish his task delete it
         if(listProcess.at(0).t_exec==0){
             it=listProcess.begin();
             listProcess.erase(it);
-        }
-        if(firstInit){
-            std::stable_sort(listProcess.begin(),listProcess.end(),sortProcessByArriveTimeSmallFirstEqual);
-            firstInit=false;
         }else{
-            std::stable_sort(listProcess.begin(),listProcess.end(),sortProcessByArriveTimeSmallFirst);
+            std::rotate(listProcess.begin(),listProcess.begin()+1,listProcess.end());
         }
+        std::stable_sort(listProcess.begin(),listProcess.end(),sortProcessByArriveTimeSmallFirst);
     }
 
-    //displayProcessChunkResult(resultChunck);
+    displayProcessChunkResult(resultChunck);
     return resultChunck;
 }
 

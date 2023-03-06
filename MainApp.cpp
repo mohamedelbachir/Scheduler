@@ -27,7 +27,7 @@ bool isEqual(ImVec4 a,ImVec4 b){
 }
 
 int App::fetchingData(){
-    SplashScreen splash("splash",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,655,285,SDL_WINDOW_SHOWN|SDL_WINDOW_BORDERLESS);
+    SplashScreen splash("splash",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,655,285,SDL_WINDOW_SHOWN|SDL_WINDOW_BORDERLESS|SDL_WINDOW_SKIP_TASKBAR|SDL_WINDOW_ALWAYS_ON_TOP);
     return splash.run();
 }
 
@@ -128,6 +128,7 @@ void openFile(){
 }
 
 void App::loadParam(char *path){
+    std::cout<<path<<std::endl;
     TabShedule::Instance()->addTab(path);
     theApp::Instance()->states->changeState(new TaskState(theApp::Instance()));
 }
@@ -227,9 +228,9 @@ void App::mainMenu()
         if(ImGui::BeginMenu(LangData("idHelp"))){
             if(ImGui::MenuItem(LangData("idTutorial"))){
                 if(m_appLanguage==FR_fr){
-                    SDL_OpenURL("help_fr.html");
+                    SDL_OpenURL(std::string(App::m_path[MAINAPP_PATH]+"manual/help_fr.html").c_str());
                 }else{
-                    SDL_OpenURL("help_en.html");
+                    SDL_OpenURL(std::string(App::m_path[MAINAPP_PATH]+"manual/help_en.html").c_str());
                 }
             }
 
@@ -237,8 +238,8 @@ void App::mainMenu()
                 SDL_OpenURL("https://github.com/mohamedelbachir/scheduler/pulls");
             }
 
-            if(ImGui::MenuItem(LangData("idSupport",ICON_MD_MONEY))){
-                SDL_OpenURL("https://mohamedelbachir.github.com/scheduler/support");
+            if(ImGui::MenuItem(LangData("idUpdate",ICON_MD_UPDATE))){
+                SDL_OpenURL("https://mohamedelbachir.github.com/scheduler");
             }
 
             if(ImGui::MenuItem(LangData("idreport",ICON_MD_BUG_REPORT))){

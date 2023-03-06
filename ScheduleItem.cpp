@@ -258,6 +258,7 @@ void ScheduleTaskTab::showTableOfProcess(bool isEditable){
                                 |ImGuiTableFlags_BordersOuter
                                 |ImGuiTableFlags_BordersInnerH
                                 |ImGuiTableFlags_BordersV
+                                |ImGuiTableFlags_NoSavedSettings
                                 |ImGuiTableFlags_Resizable;
     if(isEditable)
         ImGui::PushStyleVar(ImGuiStyleVar_CellPadding,ImVec2(2,2));

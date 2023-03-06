@@ -30,10 +30,10 @@ void initParam(bool isOnSaving)
         window->QueryIntAttribute("h",&App::m_windowPos.h);
     }
 
-    window->SetAttribute("x",!isOnSaving?App::m_windowPos.x
+    window->SetAttribute("x",!isOnSaving?100
                                         :theApp::Instance()->getWindowPosition().x);
 
-    window->SetAttribute("y",!isOnSaving?App::m_windowPos.y
+    window->SetAttribute("y",!isOnSaving?100
                                         :theApp::Instance()->getWindowPosition().y);
 
     //== setting Language app ==

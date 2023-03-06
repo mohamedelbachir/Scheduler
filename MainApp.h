@@ -104,25 +104,30 @@ public:
     */
     void init(int argc,char **argv){
 
+        SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"1");
+
         m_windowPos.x=SDL_WINDOWPOS_CENTERED;
         m_windowPos.y=SDL_WINDOWPOS_CENTERED;
         m_windowPos.w=WINDOW_WIDTH;
         m_windowPos.h=WINDOW_HEIGHT;
 
-        m_path[MAINAPP_PATH]=argv[0];
+        m_path[MAINAPP_PATH]=argv[ 0];
 
         fetchingData();
+
 
         aboutWindowThread=SDL_CreateThread(aboutWindow,"aboutWindow",(void*)nullptr);
 
         Window::init("Scheduler",m_windowPos.x,m_windowPos.y,m_windowPos.w,m_windowPos.h,SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE,true);
         SDL_SetWindowMinimumSize(m_window,MIN_WINDOW_WIDTH,MAX_WINDOW_HEIGHT);
 
+        SDL_SetWindowIcon(this->getWindow(),IMG_Load(std::string(App::m_path[MAINAPP_PATH]+"Icons\SchedulerIcon.png").c_str()));
+
         states=new AppStateMachine();
 
         ImFontConfig font_config;
         font_config.FontBuilderFlags|=ImGuiFreeTypeBuilderFlags_ForceAutoHint;
-        io->Fonts->AddFontFromFileTTF("fonts\\verdana.ttf",16.0f,&font_config);
+        io->Fonts->AddFontFromFileTTF(std::string(App::m_path[MAINAPP_PATH]+"fonts/verdana.ttf").c_str(),16.0f,&font_config);
 
         //loading icon fonts ...
         static ImWchar *icons_ranges=new ImWchar[3];
@@ -135,17 +140,20 @@ public:
         icons_config.PixelSnapH = true;
         icons_config.GlyphOffset=ImVec2(0,5);
         icons_config.FontBuilderFlags|=ImGuiFreeTypeBuilderFlags_ForceAutoHint;
-        io->Fonts->AddFontFromFileTTF( "Icons/MaterialIcons-Regular.ttf", 20.0f, &icons_config, icons_ranges);
+        io->Fonts->AddFontFromFileTTF(std::string(App::m_path[MAINAPP_PATH]+"Icons/MaterialIcons-Regular.ttf").c_str(), 20.0f, &icons_config, icons_ranges);
 
         ImFontConfig cfg;
         cfg.FontBuilderFlags|=ImGuiFreeTypeBuilderFlags_Bold|ImGuiFreeTypeBuilderFlags_ForceAutoHint;
-        cft=io->Fonts->AddFontFromFileTTF("fonts\\verdana.ttf",16.0f,&cfg);
+        cft=io->Fonts->AddFontFromFileTTF(std::string(App::m_path[MAINAPP_PATH]+"fonts\\verdana.ttf").c_str(),16.0f,&cfg);
         //io->Fonts->Build();
 
         states->pushState(new MainState(this));
 
         if(argc>1){
-            loadParam(argv[1]);
+            for(int i=1;i<argc;i++){
+                std::cout<<argv[i]<<std::endl;
+                loadParam(argv[i]);
+            }
         }
     }
 

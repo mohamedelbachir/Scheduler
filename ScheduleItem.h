@@ -209,7 +209,7 @@ public:
             }
             strcat(ouput,lettre[n_process_generated<26?n_car:n_car-1]);
             sprintf(p.Sid,"%s",ouput);
-            delete []ouput;
+            //delete []ouput;
             break;
         }
         m_processes.push_back(p);
