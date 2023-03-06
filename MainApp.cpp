@@ -239,7 +239,7 @@ void App::mainMenu()
             }
 
             if(ImGui::MenuItem(LangData("idUpdate",ICON_MD_UPDATE))){
-                SDL_OpenURL("https://mohamedelbachir.github.com/scheduler");
+                SDL_OpenURL("https://mohamedelbachir.github.io/Scheduler/");
             }
 
             if(ImGui::MenuItem(LangData("idreport",ICON_MD_BUG_REPORT))){
