@@ -2,6 +2,7 @@
 /emc
 /linux
 /linuxs
+/win
 
 # Prerequisites
 *.d
