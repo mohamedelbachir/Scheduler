@@ -21,6 +21,7 @@ Some feature was implemented :
 - Choosing *Generation Mode* ( Alphabetic, Numerical, Alpha-Numeric,...)
 - Major *algorithm* like ( Round Robin, Shortest Remaning Time First,...)
 - Two Languages are available now ( **French** and **English** )
+- Feature to add priority for each algorithms
 
 If you are looking for optimizing implemented algorithm you can see [here](ScheduleAlgorithm.cpp) and for data structure you can check [here](Utils.h)
 
@@ -52,7 +53,7 @@ You have the **possibily** to switch the theme of the App ( **Light** or **Dark*
 ![cdisplay](https://user-images.githubusercontent.com/76158313/222319609-222e71ed-3554-4390-9053-9a425322c21c.jpg) | ![cdark](https://user-images.githubusercontent.com/76158313/222318873-0c78c803-3f26-4052-a740-aa0d5ad67ac2.jpg)
 
 ### Tools
-Many Open source Tools help me to build this software : 
+Many Open source Tools, help me to build this software : 
 - `DearImgui` on this [repository](https://github.com/ocornut/imgui) for UI
 - `SDL` , you can find [here](https://github.com/libsdl-org/SDL) for Software rendering as BackEnd
 - Dependency [`Freetype`](https://github.com/freetype/freetype) , [`tinyfileDialogs`](https://github.com/native-toolkit/libtinyfiledialogs)
