@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/src",
+        "/usr/include/SDL2",
+        "C:/SDL2-2.24.0/include",
+        "C:/SDL2_ttf-2.20.1/include",
+        "C:/SDL2_image-2.6.2/include",
+        "C:/SDL2_mixer-2.6.2/include",
+        "E:/BachData/Document/emsdk/emscripten/cache/sysroot/include/emscripten"
+      ],
+      "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
+      "cStandard": "c17",
+      "cppStandard": "c++14",
+      "intelliSenseMode": "windows-gcc-x64",
+      "browse": {
+        "limitSymbolsToIncludedHeaders": false
+      }
+    }
+  ],
+  "version": 4
+}

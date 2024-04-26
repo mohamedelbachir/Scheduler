@@ -1,0 +1,1 @@
+-I"C:/SDL2_mixer-2.6.2/cmake/../include" -I"C:/SDL2_ttf-2.20.1/cmake/../include" -isystem "C:/SDL2-2.24.0/cmake/../include"

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Scheduler</title>
+    <style>
+      :root {
+        --dark: #1d1d1d;
+        --light: #f0f0f0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      @font-face {
+        font-family: fontStyle;
+        src: url("./assets/fonts/candara.TTF");
+      }
+      body {
+        font-family: fontStyle, "Courier New", Courier, monospace;
+        position: relative;
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+        height: 100dvh;
+      }
+      .dark {
+        background-color: var(--dark);
+        color: white;
+      }
+      .light {
+        background-color: var(--light);
+        color: rgb(46, 46, 46);
+      }
+      .emscripten {
+        padding-right: 0;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .emscripten_border {
+        display: none;
+        height: 100%;
+        overflow: hidden;
+      }
+      textarea.emscripten {
+        font-family: monospace;
+        width: 80%;
+        display: none;
+      }
+      div.emscripten {
+        text-align: center;
+      }
+      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      canvas.emscripten {
+        border: 0px none;
+        background-color: black;
+      }
+      .spinner {
+        display: none;
+      }
+      .container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 20%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .logo {
+        width: 100px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        text-align: center;
+      }
+      #status {
+        display: none;
+      }
+      #appName {
+        margin-top: 5px;
+        margin-bottom: 3px;
+      }
+      .light #progress {
+        accent-color: rgb(170 180 195);
+      }
+      .dark #progress {
+        accent-color: var(--dark);
+      }
+      #progress {
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="./assets/Icons/Scheduler.png" alt="logo" class="logo" />
+      <div id="status">Downloading...</div>
+      <div id="appName">Scheduler</div>
+      <div>
+        <progress value="10" max="100" id="progress"></progress>
+      </div>
+    </div>
+
+    <div class="emscripten_border">
+      <canvas
+        class="emscripten"
+        id="canvas"
+        oncontextmenu="event.preventDefault()"
+        tabindex="-1"
+      ></canvas>
+    </div>
+    <textarea class="emscripten" id="output" rows="8"></textarea>
+    <script type="text/javascript">
+      var statusElement = document.getElementById("status");
+      var progressElement = document.getElementById("progress");
+      var Module = {
+        print: (function () {
+          var element = document.getElementById("output");
+          if (element) element.value = ""; // clear browser cache
+          return function (text) {
+            if (arguments.length > 1)
+              text = Array.prototype.slice.call(arguments).join(" ");
+            // These replacements are necessary if you render to raw HTML
+            //text = text.replace(/&/g, "&amp;");
+            //text = text.replace(/</g, "&lt;");
+            //text = text.replace(/>/g, "&gt;");
+            //text = text.replace('\n', '<br>', 'g');
+            console.log(text);
+            if (element) {
+              element.value += text + "\n";
+              element.scrollTop = element.scrollHeight; // focus on bottom
+            }
+          };
+        })(),
+        canvas: (() => {
+          var canvas = document.getElementById("canvas");
+
+          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+          // application robust, you may want to override this behavior before shipping!
+          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+          canvas.addEventListener(
+            "webglcontextlost",
+            (e) => {
+              alert("WebGL context lost. You will need to reload the page.");
+              e.preventDefault();
+            },
+            false
+          );
+
+          return canvas;
+        })(),
+        setStatus: (text) => {
+          if (!Module.setStatus.last)
+            Module.setStatus.last = { time: Date.now(), text: "" };
+          if (text === Module.setStatus.last.text) return;
+          var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+          var now = Date.now();
+          if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+          Module.setStatus.last.time = now;
+          Module.setStatus.last.text = text;
+          if (m) {
+            text = m[1];
+            progressElement.value = parseInt(m[2]) * 100;
+            progressElement.max = parseInt(m[4]) * 100;
+            progressElement.hidden = false;
+          } else {
+            progressElement.value = null;
+            progressElement.max = null;
+            progressElement.hidden = true;
+          }
+          statusElement.innerHTML = text;
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: (left) => {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+          Module.setStatus(
+            left
+              ? "Preparing... (" +
+                  (this.totalDependencies - left) +
+                  "/" +
+                  this.totalDependencies +
+                  ")"
+              : "All downloads complete."
+          );
+        },
+      };
+      Module.setStatus("Downloading...");
+      window.onerror = () => {
+        Module.setStatus("Exception thrown, see JavaScript console");
+        Module.setStatus = (text) => {
+          if (text) console.error("[post-exception status] " + text);
+        };
+      };
+      Module["onRuntimeInitialized"] = function () {
+        document.querySelector(".container").style.display = "none";
+        document.querySelector(".emscripten_border").style.display = "block";
+      };
+    </script>
+    <script type="text/javascript">
+      var body = document.body;
+      var isDark = parseInt(localStorage.getItem("theme") || 0);
+      if (isDark === 1) {
+        body.classList.add("dark");
+      } else {
+        body.classList.add("light");
+      }
+    </script>
+    {{{ SCRIPT }}}
+  </body>
+</html>
