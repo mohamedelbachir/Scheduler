@@ -3,6 +3,7 @@
 /linux
 /linuxs
 /win
+/bin
 
 # Prerequisites
 *.d
