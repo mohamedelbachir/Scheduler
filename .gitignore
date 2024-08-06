@@ -1,8 +1,9 @@
-/build
-/emc
-/linux
-/linuxs
-/win
+build
+emc
+linux
+linuxs
+win
+
 
 # Prerequisites
 *.d
