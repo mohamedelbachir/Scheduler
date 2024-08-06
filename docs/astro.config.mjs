@@ -3,8 +3,8 @@ import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://mohamedelbachir.github.io",
-  base: "/Scheduler",
+  //site: "https://mohamedelbachir.github.io",
+  //base: "/Scheduler",
   integrations: [
     starlight({
       title: "Scheduler",
